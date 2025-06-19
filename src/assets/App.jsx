@@ -8,27 +8,32 @@ export function App() {
       <TwitterFollowCard
         isFollowing
         userName="Rouseta"
-        name="Rosa Donoso Requena"
         formatUserName={formatUserName}
-      />
+      >
+        Rosa Donoso Requena
+      </TwitterFollowCard>
       <TwitterFollowCard
         isFollowing
         userName="Puch"
-        name="Juan Roch González"
         formatUserName={formatUserName}
-      />
+      >
+        Juan Roch González
+      </TwitterFollowCard>
       <TwitterFollowCard
-        isFollowing
+        isFollowing={false}
         userName="Dumbledore"
-        name="Albus Dumbledore"
         formatUserName={formatUserName}
-      />
+      >
+        Albus Dumbledore
+      </TwitterFollowCard>
+
       <TwitterFollowCard
         isFollowing={false}
         userName="Messi"
-        name="Leo Messi"
         formatUserName={formatUserName}
-      />
+      >
+        Leo Messi
+      </TwitterFollowCard>
     </section>
   );
 }
