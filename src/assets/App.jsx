@@ -11,8 +11,7 @@ export function App() {
   const formatUserName = (userName) => `@${userName}`;
   return (
     <section className="App">
-      {users.map((user) => {
-        const { userName, name, isFollowing } = user;
+      {users.map(({ userName, name, isFollowing }) => {
         return (
           <TwitterFollowCard
             userName={userName}
