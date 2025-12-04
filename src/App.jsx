@@ -48,6 +48,17 @@ function App() {
     return null;
   };
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(null));
+    setTurn(TURNS.X);
+    setWinner(null);
+  };
+
+  const checkEndGame = (newBoard) => {
+    //revisar si hay algun null en el tablero
+    return newBoard.every((square) => square !== null);
+  };
+
   const updateBoard = (index) => {
     // If the square is already filled or there is a winner, do nothing
     if (board[index] || winner) return;
@@ -63,13 +74,16 @@ function App() {
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
       setWinner(newWinner);
-      //To do is the game over
-    }
+      //To do if the game over
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false);
+    } //empate
   };
 
   return (
     <main className="board">
-      <h1>Tic tac toe</h1>
+      <h1>Tres en raya</h1>
+      <button onClick={resetGame}>Reinicia el juego</button>
       <section className="game">
         {board.map((_, index) => {
           return (
@@ -92,7 +106,7 @@ function App() {
             </header>
 
             <footer>
-              <button>Empezar de nuevo</button>
+              <button onClick={resetGame}>Empezar de nuevo</button>
             </footer>
           </div>
         </section>
