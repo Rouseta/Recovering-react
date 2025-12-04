@@ -86,8 +86,14 @@ function App() {
       {winner !== null && (
         <section className="winner">
           <div className="text">
-            <h2>{winner === false ? 'Empate' : 'Ha ganado: ' + winner}</h2>
-            {/* <button onClick={() => window.location.reload()}>Empezar de nuevo</button> */}
+            <h2>{winner === false ? 'Empate' : 'Ha ganado: '}</h2>
+            <header className="win">
+              {winner && <Square>{winner}</Square>}
+            </header>
+
+            <footer>
+              <button>Empezar de nuevo</button>
+            </footer>
           </div>
         </section>
       )}
