@@ -33,10 +33,25 @@ function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [turn, setTurn] = useState(TURNS.X);
   const [winner, setWinner] = useState(null); //null no hay ganador, false es empate
+  //revisamos todas las combinaciones ganadoras para ver si alguien ganó
+  const checkWinner = (boardToCheck) => {
+    for (const combo of WINNER_COMBOS) {
+      const [a, b, c] = combo;
+      if (
+        boardToCheck[a] &&
+        boardToCheck[a] === boardToCheck[b] &&
+        boardToCheck[a] === boardToCheck[c]
+      )
+        return boardToCheck[a];
+    }
+    //si no hay ganador
+    return null;
+  };
 
   const updateBoard = (index) => {
-    // If the square is already filled, do nothing
-    if (board[index]) return;
+    // If the square is already filled or there is a winner, do nothing
+    if (board[index] || winner) return;
+
     const newBoard = [...board];
     newBoard[index] = turn;
 
@@ -44,6 +59,12 @@ function App() {
     // Change turn
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
+    //Revisar si hay ganador
+    const newWinner = checkWinner(newBoard);
+    if (newWinner) {
+      setWinner(newWinner);
+      //To do is the game over
+    }
   };
 
   return (
@@ -62,6 +83,14 @@ function App() {
         <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
         <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
       </section>
+      {winner !== null && (
+        <section className="winner">
+          <div className="text">
+            <h2>{winner === false ? 'Empate' : 'Ha ganado: ' + winner}</h2>
+            {/* <button onClick={() => window.location.reload()}>Empezar de nuevo</button> */}
+          </div>
+        </section>
+      )}
     </main>
   );
 }
