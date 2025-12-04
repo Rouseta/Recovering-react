@@ -5,6 +5,7 @@ import { Square } from './components/Square.jsx';
 import { TURNS } from './constants/constants.js';
 import { checkWinner, checkEndGame } from './logic/board.js';
 import { WinnerModal } from './components/WinnerModal.jsx';
+import { AiFillHeart, AiFillApple } from 'react-icons/ai';
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
