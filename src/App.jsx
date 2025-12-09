@@ -8,12 +8,23 @@ import { WinnerModal } from './components/WinnerModal.jsx';
 import { AiFillHeart, AiFillApple } from 'react-icons/ai';
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turn, setTurn] = useState(TURNS.X);
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = window.localStorage.getItem('board');
+    return boardFromStorage
+      ? JSON.parse(boardFromStorage)
+      : Array(9).fill(null);
+  });
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn');
+    return turnFromStorage ? turnFromStorage : TURNS.X;
+  });
   const [winner, setWinner] = useState(null); //null no hay ganador, false es empate
   //revisamos todas las combinaciones ganadoras para ver si alguien ganó
 
   const resetGame = () => {
+    //borrar local storage al reiniciar
+    window.localStorage.removeItem('board');
+    window.localStorage.removeItem('turn');
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
@@ -30,6 +41,9 @@ function App() {
     // Change turn
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
+    //Guardar aquí
+    window.localStorage.setItem('board', JSON.stringify(newBoard));
+    window.localStorage.setItem('turn', newTurn);
     //Revisar si hay ganador
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
